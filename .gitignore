@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv*/
+env*/
+.venv/
+.env
+
+# Testing & Results - SECURITY: Contains compliance data
+results/
+*.csv
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Network Config Data - SECURITY: Contains real IP addresses and infrastructure details
+snapshots/*/
+!snapshots/README.md
+!snapshots/examples/
+
+# Logs & Temporary
+*.log
+*.tmp
+temp/
+tmp/
+
+# Claude Code
+.claude/
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Local development
+.env.local
+config.local.*
