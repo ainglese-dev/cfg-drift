@@ -92,10 +92,20 @@ def find_latest_snapshot_dir(snapshots_base, snap_ts=None):
     if not os.path.isdir(snapshots_base):
         return None
 
-    subdirs = [d for d in sorted(os.listdir(snapshots_base))
-               if os.path.isdir(os.path.join(snapshots_base, d))]
+    # Filter for timestamp-like directories (YYYY-MM-DDTHH:MM:SSZ format)
+    # Ignore examples, README.md, and other non-timestamp directories
+    timestamp_dirs = []
+    for d in os.listdir(snapshots_base):
+        dir_path = os.path.join(snapshots_base, d)
+        if os.path.isdir(dir_path) and d not in ['examples', 'README.md']:
+            # Basic check for timestamp format (contains T and ends with Z or has : )
+            if 'T' in d and ('Z' in d or ':' in d):
+                timestamp_dirs.append(d)
 
-    return os.path.join(snapshots_base, subdirs[-1]) if subdirs else None
+    if not timestamp_dirs:
+        return None
+
+    return os.path.join(snapshots_base, sorted(timestamp_dirs)[-1])
 
 
 def collect_device_configs(snapshot_dir):
